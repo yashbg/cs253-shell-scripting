@@ -27,4 +27,4 @@ awk -F , '$3 == "Bachelor'\''s" {print $1}' $1 >> $2
 
 # task 5
 
-awk -F , '{print $6}' $1 | sort | uniq > temp.txt
+awk -F , 'NR > 1 {print $6}' $1 | sort | uniq > temp.txt
