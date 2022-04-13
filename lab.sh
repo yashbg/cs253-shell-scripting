@@ -28,3 +28,8 @@ awk -F , '$3 == "Bachelor'\''s" {print $1}' $1 >> $2
 # task 5
 
 awk -F , 'NR > 1 {print $6}' $1 | sort | uniq > temp.txt
+
+while read geo
+do
+    awk -F , '$6 == x {print $7}' x="$geo" $1 > temp2.txt
+done < temp.txt
