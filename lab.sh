@@ -27,20 +27,21 @@ awk -F , '$3 == "Bachelor'\''s" {print $1}' $1 >> $2
 
 # task 5
 
-awk -F , 'NR > 1 {print $6}' $1 | sort | uniq > geographies.txt
-
 echo Geography: Average Admission Rate >> $2
 
-while read geo
-do
-    awk -F , '$6 == x {print $7}' x="$geo" $1 > admission_rates.txt
-    sum=0
-    i=0
-    while read adm_rate
-    do
-        sum=$(echo "$sum + $adm_rate" | bc)
-        ((i++))
-    done < admission_rates.txt
-    avg=$(echo "$sum / $i" | bc)
-    echo $geo: $avg >> $2
-done < geographies.txt
+awk '
+	BEGIN {
+		FS = ",";
+		OFS = ": ";
+	}
+	NR > 1 {
+		adm_rate[$6] += $7;
+		count[$6]++;
+	}
+	END {
+		for(geo in adm_rate) {
+			avg = adm_rate[geo] / count[geo];
+			print geo, avg
+		}
+	}
+' $1 >> $2
