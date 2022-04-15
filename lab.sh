@@ -45,3 +45,7 @@ awk '
 		}
 	}
 ' $1 >> $2
+
+# task 6
+
+sort -r -n -t ',' -k16 $1 | head -n 5 | awk -F , '{print $1}' >> $2
