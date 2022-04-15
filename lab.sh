@@ -4,7 +4,7 @@
 
 if [ $# -ne 2 ]
 then
-    echo "Usage message"
+    echo "Provide exactly 2 file names as arguments. The first file argument should be the name of the input csv file, and the second one should be the name of the output file. "
     exit 1
 fi
 
